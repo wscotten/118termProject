@@ -5,6 +5,5 @@ jobs:
       - image: node:9.2.0
     steps:
       - checkout
-      - run:
-          name: Run Jest tests
-          command: npm test
+      - run: npm install
+      - run: npm test
