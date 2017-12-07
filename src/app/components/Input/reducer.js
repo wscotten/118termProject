@@ -1,6 +1,6 @@
 const initialData = {
   radius: 50,
-  angleDAB: 30,
+  angleDAB: 50,
 };
 
 const inputReducer = (inputFields = initialData, { type, field, payload }) => {

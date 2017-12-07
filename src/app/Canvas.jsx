@@ -34,63 +34,7 @@ class CanvasContainer extends PureComponent {
     context.lineWidth=2;
     context.fillStyle = 'rgba(66, 134, 244, 0.5)';
     context.strokeStyle = 'rgb(66, 134, 244)';
-
-    if (selectedProblem === 'asdradius, &#8736;ABD, &#8736;BDA') {
-      // draw triangle
-      context.beginPath();
-      context.arc(150, 150, 3, 0, 360, 0);
-      context.fillText('A', 150, 145);
-      context.fill();
-      context.closePath();
-
-      context.beginPath();
-      context.arc(pointB_X, pointB_Y, 3, 0, 360, 0);
-      context.fillText('B', pointB_X, pointB_Y - 5);
-      context.fill();
-      context.closePath();
-
-      context.beginPath();
-      context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
-      context.fillText('C', pointC_X, pointC_Y - 5);
-      context.fill();
-      context.closePath();
-
-      context.beginPath();
-      context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
-      context.fillText('C', pointC_X, pointC_Y - 5);
-      context.fill();
-      context.closePath();
-
-      context.beginPath();
-      context.arc(pointD_X, pointD_Y, 3, 0, 360, 0);
-      context.fillText('D', pointD_X, pointD_Y - 5);
-      context.fill();
-      context.closePath();
-      //Triangle ABC
-      context.beginPath();
-      context.lineWidth=2;
-      context.moveTo(pointA_X, pointA_Y);
-      context.lineTo(pointB_X, pointB_Y);
-      context.lineTo(pointC_X, pointC_Y);
-      context.closePath();
-      context.stroke();
-      //Triangle ABD
-      context.beginPath();
-      context.lineWidth=2;
-      context.moveTo(pointA_X, pointA_Y);
-      context.lineTo(pointB_X, pointB_Y);
-      context.lineTo(pointD_X, pointD_Y);
-      context.closePath();
-      context.stroke();
-      context.fill();
-      // draw circle
-      context.beginPath();
-      context.arc(pointA_X, pointA_Y, radius, 0, 360, 0);
-      context.stroke();
-      context.closePath();
-    } else {
-      drawInputSet1(context, radius, angleDAB);
-    }
+    drawInputSet1(context, radius, angleDAB);
   }
 
   render() {
@@ -104,7 +48,7 @@ class CanvasContainer extends PureComponent {
         />
         {
           this.props.isSolvable
-            ? <h1 style={{ color: '#86f442' }}>Solvable</h1>
+            ? <h1 style={{ color: '#33b73e' }}>Solvable</h1>
             : <h1 style={{ color: '#f44141' }}>Unsolvable</h1>
         }
       </div>

@@ -53,6 +53,22 @@ export const perimeterBCD = inputFields =>
 export const perimeterCircle = radius => (Number(radius) * 2 * Math.PI).toFixed(2);
 export const areaCircle = ({ radius }) => (radius * radius * Math.PI).toFixed(2);
 
+export const angleABC = () => 90;
+export const angleCAB = inputFields => inputFields.angleDAB;
+export const angleBCA = inputFields => 90 - inputFields.angleDAB;
+export const angleABD = inputFields => (180 - inputFields.angleDAB) / 2;
+export const angleBDA = inputFields => (180 - inputFields.angleDAB) / 2;
+export const angleCBD = inputFields => 90 - angleABD(inputFields);
+export const angleBDC = inputFields => 180 - angleCBD(inputFields) - angleBCA(inputFields);
+
+export const areaABC = inputFields => 0.5 * getLineAB(inputFields) * getLineBC(inputFields);
+
+export const smallArcBD = inputFields =>
+  (inputFields.angleDAB / 360) * perimeterCircle(inputFields.radius);
+
+export const largeArcBD = inputFields =>
+  perimeterCircle(inputFields.radius) - smallArcBD(inputFields);
+
 export const thirdCoordFromAngleAndRadius = (x1, y1, radius, degrees) => {
   const angle = ((2 * Math.PI * degrees) / 360);
   return {

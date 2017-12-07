@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Form as BootstrapForm, FormGroup, Col, FormControl, ControlLabel, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Form as BootstrapForm } from 'react-bootstrap';
 import Input from './components/Input';
 import ProblemSelector from './components/ProblemSelector';
 import update from './components/Input/actions';
@@ -15,16 +15,21 @@ import {
   getLineBC,
   getLineBD,
   getLineCD,
-  distance,
   perimeterABD,
   perimeterABC,
   perimeterBCD,
   perimeterCircle,
   areaCircle,
-  thirdCoordFromAngleAndRadius,
-  tangentPointFromRadiusAndD,
-  thirdCoordFromAngleAndRadius2,
-  tangentPointFromRadiusAndD2,
+  angleABC,
+  angleCAB,
+  angleBCA,
+  angleABD,
+  angleBDA,
+  angleBDC,
+  angleCBD,
+  areaABC,
+  smallArcBD,
+  largeArcBD,
 } from './utils/geometryEquations';
 import isSolvable from './utils/isSolvable';
 
@@ -36,27 +41,39 @@ class FormContainer extends PureComponent {
       radius,
       angleDAB,
     } = this.props.inputFields;
-    const isSolvable = this.props.isSolvable;
-    const selectedProblem = this.props.selectedProblem;
-    const pointA_X = this.props.pointA_X;
-    const pointA_Y = this.props.pointA_Y;
-    const pointB_X = this.props.pointB_X;
-    const pointB_Y = this.props.pointB_Y;
-    const pointC_X = this.props.pointC_X;
-    const pointC_Y = this.props.pointC_Y;
-    const pointD_X = this.props.pointD_X;
-    const pointD_Y = this.props.pointD_Y;
-    const lineAB = this.props.lineAB;
-    const lineAC = this.props.lineAC;
-    const lineAD = this.props.lineAD;
-    const lineBC = this.props.lineBC;
-    const lineBD = this.props.lineBD;
-    const lineCD = this.props.lineCD;
-    const perimeterABD = this.props.perimeterABD;
-    const perimeterABC = this.props.perimeterABC;
-    const perimeterBCD = this.props.perimeterBCD;
-    const perimeterCircle = this.props.perimeterCircle;
-    const areaCircle = this.props.areaCircle;
+    const {
+      isSolvable,
+      selectedProblem,
+      pointA_X,
+      pointA_Y,
+      pointB_X,
+      pointB_Y,
+      pointC_X,
+      pointC_Y,
+      pointD_X,
+      pointD_Y,
+      lineAB,
+      lineAC,
+      lineAD,
+      lineBC,
+      lineBD,
+      lineCD,
+      perimeterABD,
+      perimeterABC,
+      perimeterBCD,
+      perimeterCircle,
+      areaCircle,
+      angleABC,
+      angleCAB,
+      angleBCA,
+      angleABD,
+      angleBDA,
+      angleBDC,
+      angleCBD,
+      areaABC,
+      smallArcBD,
+      largeArcBD,
+    } = this.props;
     return (
       <BootstrapForm horizontal>
         <h4>Problem Inputs</h4>
@@ -168,24 +185,58 @@ class FormContainer extends PureComponent {
               disabled 
               currentInput={areaCircle} 
             />
+            <Input 
+              name="angle ABC" 
+              disabled 
+              currentInput={angleABC} 
+            />
+            <Input 
+              name="angle CAB" 
+              disabled 
+              currentInput={angleCAB} 
+            />
+            <Input 
+              name="angle BCA" 
+              disabled 
+              currentInput={angleBCA} 
+            />
+            <Input 
+              name="angle ABD" 
+              disabled 
+              currentInput={angleABD} 
+            />
+            <Input 
+              name="angle BDA" 
+              disabled 
+              currentInput={angleBDA} 
+            />
+            <Input 
+              name="angle BDC" 
+              disabled 
+              currentInput={angleBDC} 
+            />
+            <Input 
+              name="angle CBD" 
+              disabled 
+              currentInput={angleCBD} 
+            />
+            <Input 
+              name="area ABC" 
+              disabled 
+              currentInput={areaABC} 
+            />
+            <Input 
+              name="sml arc BD" 
+              disabled 
+              currentInput={smallArcBD} 
+            />
+            <Input 
+              name="lg arc BD" 
+              disabled 
+              currentInput={largeArcBD} 
+            />
           </div>
         }
-
-        {/* <Input name="&#8736;ABD" currentInput={angleABD} inputTyped={this.handleChange} field="angleABD" />
-        <Input name="&#8736;ACB" currentInput={angleACB} inputTyped={this.handleChange} field="angleACB" />
-        <Input name="&#8736;ADB" currentInput={angleADB} inputTyped={this.handleChange} field="angleADB" />
-        <Input name="&#8736;BAD" currentInput={angleBAD} inputTyped={this.handleChange} field="angleBAD" />
-        <Input name="&#8736;BDC" currentInput={angleBDC} inputTyped={this.handleChange} field="angleBDC" />
-        <Input name="&#8736;CBD" currentInput={angleCBD} inputTyped={this.handleChange} field="angleCBD" />
-        <Input name="sml arc BD" disabled currentInput={this.props.smallArcBD} field="smallArcBD" />
-        <Input name="lg arc BD" disabled currentInput={this.props.largeArcBD} field="largeArcBD" />
-        <Input name="area ABD" disabled currentInput={this.props.areaABD} field="areaABD" />
-        <Input name="area ABC" disabled currentInput={this.props.areaABC} field="areaABC" />
-        <Input name="area BDC" disabled currentInput={this.props.areaBDC} field="areaBDC" />
-        <Input name="area circle" disabled currentInput={this.props.areaCircle} field="areaCircle" />
-        <h4>Output</h4>
-
-        /> */}
       </BootstrapForm>
     );
   }
@@ -213,6 +264,16 @@ const mapStateToProps = state => ({
   perimeterBCD: perimeterBCD(state.inputFields),
   perimeterCircle: perimeterCircle(state.inputFields.radius),
   areaCircle: areaCircle(state.inputFields),
+  angleABC: angleABC(),
+  angleCAB: angleCAB(state.inputFields),
+  angleBCA: angleBCA(state.inputFields),
+  angleABD: angleABD(state.inputFields),
+  angleBDA: angleBDA(state.inputFields),
+  angleBDC: angleBDC(state.inputFields),
+  angleCBD: angleCBD(state.inputFields),
+  areaABC: areaABC(state.inputFields),
+  smallArcBD: smallArcBD(state.inputFields),
+  largeArcBD: largeArcBD(state.inputFields),
   selectedProblem: state.selectedProblem,
 });
 

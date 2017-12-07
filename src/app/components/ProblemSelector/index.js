@@ -15,7 +15,6 @@ class Container extends PureComponent {
           onChange={this.handleChange}
         >
           <ToggleButton value={'radius, &#8736;DAB'}>radius, &#8736;DAB</ToggleButton>
-          <ToggleButton value={'radius, &#8736;A, &#8736;B'}>radius, &#8736;ABD, &#8736;BDA</ToggleButton>
         </ToggleButtonGroup>
     );
   }
