@@ -1,32 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { drawInputSet1 } from './utils/canvas';
+import isSolvable from './utils/isSolvable';
 
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
-
-const isSolvable = (selectedProblem, inputFields) => {
-  if(inputFields) {
-    console.log(inputFields.radius);
-    console.log(inputFields.angleDAB);
-  }
-  switch(selectedProblem) {
-    case 'radius, &#8736;DAB': {
-      if (
-        inputFields &&
-        inputFields.radius < 150 &&
-        inputFields.angleDAB > 0 &&
-        inputFields.angleDAB < 360
-      ) {
-        return true;
-      }
-
-      return false;
-    }
-    default:
-      return false;
-  }
-};
 
 class CanvasContainer extends PureComponent {
   componentDidMount() {
@@ -48,28 +26,6 @@ class CanvasContainer extends PureComponent {
     pointC_Y,
     pointD_X,
     pointD_Y,
-    angleACB,
-    angleADB,
-    angleBAD,
-    angleBDC,
-    angleCBD,
-    smallArcBD,
-    largeArcBD,
-    areaABD,
-    areaABC,
-    areaBDC,
-    areaCircle,
-    areaTriangle,
-    lineAB,
-    lineAC,
-    lineAD,
-    lineBC,
-    lineBD,
-    lineCD,
-    perimeterCircle,
-    perimeterABD,
-    perimeterABC,
-    perimeterBDC,
   }, selectedProblem) {
     // setup
     const context = this.refs.canvas.getContext('2d');

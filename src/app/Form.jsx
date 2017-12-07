@@ -4,7 +4,29 @@ import { Form as BootstrapForm, FormGroup, Col, FormControl, ControlLabel, Toggl
 import Input from './components/Input';
 import ProblemSelector from './components/ProblemSelector';
 import update from './components/Input/actions';
-import perimeterCircle from './utils/perimeterCircle';
+import { 
+  getPointA,
+  getPointB,
+  getPointC,
+  getPointD,
+  getLineAB,
+  getLineAC,
+  getLineAD,
+  getLineBC,
+  getLineBD,
+  getLineCD,
+  distance,
+  perimeterABD,
+  perimeterABC,
+  perimeterBCD,
+  perimeterCircle,
+  areaCircle,
+  thirdCoordFromAngleAndRadius,
+  tangentPointFromRadiusAndD,
+  thirdCoordFromAngleAndRadius2,
+  tangentPointFromRadiusAndD2,
+} from './utils/geometryEquations';
+import isSolvable from './utils/isSolvable';
 
 class FormContainer extends PureComponent {
   handleChange = (field, value) => this.props.inputTyped(field, value);
@@ -14,8 +36,27 @@ class FormContainer extends PureComponent {
       radius,
       angleDAB,
     } = this.props.inputFields;
-    const solvable = this.props.solvable;
+    const isSolvable = this.props.isSolvable;
     const selectedProblem = this.props.selectedProblem;
+    const pointA_X = this.props.pointA_X;
+    const pointA_Y = this.props.pointA_Y;
+    const pointB_X = this.props.pointB_X;
+    const pointB_Y = this.props.pointB_Y;
+    const pointC_X = this.props.pointC_X;
+    const pointC_Y = this.props.pointC_Y;
+    const pointD_X = this.props.pointD_X;
+    const pointD_Y = this.props.pointD_Y;
+    const lineAB = this.props.lineAB;
+    const lineAC = this.props.lineAC;
+    const lineAD = this.props.lineAD;
+    const lineBC = this.props.lineBC;
+    const lineBD = this.props.lineBD;
+    const lineCD = this.props.lineCD;
+    const perimeterABD = this.props.perimeterABD;
+    const perimeterABC = this.props.perimeterABC;
+    const perimeterBCD = this.props.perimeterBCD;
+    const perimeterCircle = this.props.perimeterCircle;
+    const areaCircle = this.props.areaCircle;
     return (
       <BootstrapForm horizontal>
         <h4>Problem Inputs</h4>
@@ -28,28 +69,108 @@ class FormContainer extends PureComponent {
             <Input name="&#8736;DAB" currentInput={angleDAB} inputTyped={this.handleChange} field="angleDAB" />
           </div>
         }
-        <h4>Output</h4>
         {
-          solvable && 
+          isSolvable && 
           <div>
+            <h4>Output</h4>
+            <Input 
+              name="point A: X" 
+              disabled 
+              currentInput={pointA_X} 
+            />
+            <Input 
+              name="point A: Y" 
+              disabled 
+              currentInput={pointA_Y} 
+            />
+            <Input 
+              name="point B: X" 
+              disabled 
+              currentInput={pointB_X} 
+            />
+            <Input 
+              name="point B: Y" 
+              disabled 
+              currentInput={pointB_Y} 
+            />
+            <Input 
+              name="point C: X" 
+              disabled 
+              currentInput={pointC_X} 
+            />
+            <Input 
+              name="point C: Y" 
+              disabled 
+              currentInput={pointC_Y} 
+            />
+            <Input 
+              name="point D: X" 
+              disabled 
+              currentInput={pointD_X} 
+            />
+            <Input 
+              name="point D: Y" 
+              disabled 
+              currentInput={pointD_Y} 
+            />
+            <Input 
+              name="line AB" 
+              disabled 
+              currentInput={lineAB} 
+            />
+            <Input 
+              name="line AC" 
+              disabled 
+              currentInput={lineAC} 
+            />
+            <Input 
+              name="line AD" 
+              disabled 
+              currentInput={lineAD} 
+            />
             <Input 
               name="line BC" 
               disabled 
-              currentInput={5} 
+              currentInput={lineBC} 
             />
             <Input 
               name="line BD" 
               disabled 
-              currentInput={5} 
+              currentInput={lineBD} 
+            />
+            <Input 
+              name="line CD" 
+              disabled 
+              currentInput={lineCD} 
+            />
+            <Input 
+              name="per. ABD" 
+              disabled 
+              currentInput={perimeterABD} 
+            />
+            <Input 
+              name="per. ABC" 
+              disabled 
+              currentInput={perimeterABC} 
+            />
+            <Input 
+              name="per. BCD" 
+              disabled 
+              currentInput={perimeterBCD} 
+            />
+            <Input 
+              name="per. circle" 
+              disabled 
+              currentInput={perimeterCircle} 
+            />
+            <Input 
+              name="area. circle" 
+              disabled 
+              currentInput={areaCircle} 
             />
           </div>
         }
-        {/* <Input name="point B X" currentInput={pointB_X} inputTyped={this.handleChange} field="pointB_X" />
-        <Input name="point B Y" currentInput={pointB_Y} inputTyped={this.handleChange} field="pointB_Y" />
-        <Input name="point C X" currentInput={pointC_X} inputTyped={this.handleChange} field="pointC_X" />
-        <Input name="point C Y" currentInput={pointC_Y} inputTyped={this.handleChange} field="pointC_Y" />
-        <Input name="point D X" currentInput={pointD_X} inputTyped={this.handleChange} field="pointD_X" />
-        <Input name="point D Y" currentInput={pointD_Y} inputTyped={this.handleChange} field="pointD_Y" /> */}
+
         {/* <Input name="&#8736;ABD" currentInput={angleABD} inputTyped={this.handleChange} field="angleABD" />
         <Input name="&#8736;ACB" currentInput={angleACB} inputTyped={this.handleChange} field="angleACB" />
         <Input name="&#8736;ADB" currentInput={angleADB} inputTyped={this.handleChange} field="angleADB" />
@@ -63,69 +184,7 @@ class FormContainer extends PureComponent {
         <Input name="area BDC" disabled currentInput={this.props.areaBDC} field="areaBDC" />
         <Input name="area circle" disabled currentInput={this.props.areaCircle} field="areaCircle" />
         <h4>Output</h4>
-        <Input 
-          name="line AB" 
-          disabled 
-          currentInput={distance(pointA_X, pointA_Y, pointB_X, pointB_Y)} 
-        />
-        <Input 
-          name="line AC" 
-          disabled 
-          currentInput={distance(pointA_X, pointA_Y, pointC_X, pointC_Y)} 
-        />
-        <Input 
-          name="line AD" 
-          disabled 
-          currentInput={distance(pointA_X, pointA_Y, pointD_X, pointD_Y)} 
-        />
-        <Input 
-          name="line BC" 
-          disabled 
-          currentInput={distance(pointB_X, pointB_Y, pointC_X, pointC_Y)} 
-        />
-        <Input 
-          name="line BD" 
-          disabled 
-          currentInput={distance(pointB_X, pointB_Y, pointD_X, pointD_Y)} 
-        />
-        <Input 
-          name="line CD" 
-          disabled 
-          currentInput={distance(pointC_X, pointC_Y, pointD_X, pointD_Y)} 
-        />
-        <Input 
-          name="per. circle" 
-          disabled 
-          currentInput={perimeterCircle(
-            distance(pointA_X, pointA_Y, pointB_X, pointB_Y)
-          )} 
-        />
-        <Input 
-          name="per ABD" 
-          disabled 
-          currentInput={
-            distance(pointA_X, pointA_Y, pointB_X, pointB_Y) +
-            distance(pointA_X, pointA_Y, pointD_X, pointD_Y) +
-            distance(pointB_X, pointB_Y, pointD_X, pointD_Y) 
-          } 
-        />
-        <Input 
-          name="per ABC" 
-          disabled 
-          currentInput={
-            distance(pointA_X, pointA_Y, pointB_X, pointB_Y) +
-            distance(pointA_X, pointA_Y, pointC_X, pointC_Y) +
-            distance(pointB_X, pointB_Y, pointC_X, pointC_Y) 
-          } 
-        />
-        <Input 
-          name="per BDC" 
-          disabled 
-          currentInput={
-            distance(pointB_X, pointB_Y, pointD_X, pointD_Y) +
-            distance(pointB_X, pointB_Y, pointC_X, pointC_Y) +
-            distance(pointD_X, pointD_Y, pointC_X, pointC_Y) 
-          } 
+
         /> */}
       </BootstrapForm>
     );
@@ -134,6 +193,26 @@ class FormContainer extends PureComponent {
 
 const mapStateToProps = state => ({
   inputFields: state.inputFields,
+  isSolvable: isSolvable(state.selectedProblem, state.inputFields),
+  pointA_X: getPointA()[0],
+  pointA_Y: getPointA()[1],
+  pointB_X: getPointB(state.inputFields.radius)[0],
+  pointB_Y: getPointB(state.inputFields.radius)[1],
+  pointC_X: getPointC(state.inputFields)[0],
+  pointC_Y: getPointC(state.inputFields)[1],
+  pointD_X: getPointD(state.inputFields)[0],
+  pointD_Y: getPointD(state.inputFields)[1],
+  lineAB: getLineAB(state.inputFields),
+  lineAC: getLineAC(state.inputFields),
+  lineAD: getLineAD(state.inputFields),
+  lineBD: getLineBD(state.inputFields),
+  lineBC: getLineBC(state.inputFields),
+  lineCD: getLineCD(state.inputFields),
+  perimeterABD: perimeterABD(state.inputFields),
+  perimeterABC: perimeterABC(state.inputFields),
+  perimeterBCD: perimeterBCD(state.inputFields),
+  perimeterCircle: perimeterCircle(state.inputFields.radius),
+  areaCircle: areaCircle(state.inputFields),
   selectedProblem: state.selectedProblem,
 });
 
