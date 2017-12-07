@@ -1,4 +1,6 @@
 const initialData = {
+  radius: 50,
+  angleDAB: 30,
   pointA_X: 150,
   pointA_Y: 150,
   pointB_X: 60,
@@ -7,12 +9,7 @@ const initialData = {
   pointC_Y: 20,
   pointD_X: 92,
   pointD_Y: 92,
-  angleABD: 60,
-  angleACB: 60,
-  angleADB: 60,
-  angleBAD: 60,
-  angleBDC: 60,
-  angleCBD: 60,
+
   smallArcBD: 60,
   largeArcBD: 60,
   areaABD: 50,
@@ -32,7 +29,7 @@ const initialData = {
   perimeterBDC: 50,
 };
 
-const socialReachModalReducer = (inputFields = initialData, { type, field, payload }) => {
+const inputReducer = (inputFields = initialData, { type, field, payload }) => {
   switch (type) {
     case 'UPDATE_INPUT':
       return {
@@ -44,4 +41,4 @@ const socialReachModalReducer = (inputFields = initialData, { type, field, paylo
   }
 };
 
-export default socialReachModalReducer;
+export default inputReducer;

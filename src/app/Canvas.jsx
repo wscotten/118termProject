@@ -1,23 +1,45 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { drawInputSet1 } from './utils/canvas';
 
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
 
-const distance = (x1, y1, x2, y2) => Math.sqrt(
-  (Math.abs(x1 - x2) * Math.abs(x1 - x2)) + 
-  (Math.abs(y1 - y2) * Math.abs(y1 - y2)));
+const isSolvable = (selectedProblem, inputFields) => {
+  if(inputFields) {
+    console.log(inputFields.radius);
+    console.log(inputFields.angleDAB);
+  }
+  switch(selectedProblem) {
+    case 'radius, &#8736;DAB': {
+      if (
+        inputFields &&
+        inputFields.radius < 150 &&
+        inputFields.angleDAB > 0 &&
+        inputFields.angleDAB < 360
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+    default:
+      return false;
+  }
+};
 
 class CanvasContainer extends PureComponent {
   componentDidMount() {
-    this.updateCanvas(this.props.values);
+    this.updateCanvas(this.props.inputFields);
   }
 
   componentDidUpdate() {
-    this.updateCanvas(this.props.values);
+    this.updateCanvas(this.props.inputFields, this.props.selectedProblem);
   }
 
-  updateCanvas({ 
+  updateCanvas({
+    radius,
+    angleDAB,
     pointA_X,
     pointA_Y,
     pointB_X,
@@ -26,7 +48,6 @@ class CanvasContainer extends PureComponent {
     pointC_Y,
     pointD_X,
     pointD_Y,
-    angleABD,
     angleACB,
     angleADB,
     angleBAD,
@@ -49,85 +70,96 @@ class CanvasContainer extends PureComponent {
     perimeterABD,
     perimeterABC,
     perimeterBDC,
-  }) {
-    const radius = distance(pointA_X, pointA_Y, pointB_X, pointB_Y);
+  }, selectedProblem) {
     // setup
     const context = this.refs.canvas.getContext('2d');
     context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
     context.font = '15px Arial';
-    context.fillStyle="#3169c0";
-    context.lineWidth=1;
-    context.fillStyle = "rgba(17, 37, 67, 0.5)";
-    // draw triangle
-    context.beginPath();
-    context.arc(pointA_X, pointA_Y, 3, 0, 360, 0);
-    context.fillText('A', pointA_X, pointA_Y - 5);
-    context.fill();
-    context.closePath();
-
-    context.beginPath();
-    context.arc(pointB_X, pointB_Y, 3, 0, 360, 0);
-    context.fillText('B', pointB_X, pointB_Y - 5);
-    context.fill();
-    context.closePath();
-
-    context.beginPath();
-    context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
-    context.fillText('C', pointC_X, pointC_Y - 5);
-    context.fill();
-    context.closePath();
-
-    context.beginPath();
-    context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
-    context.fillText('C', pointC_X, pointC_Y - 5);
-    context.fill();
-    context.closePath();
-
-    context.beginPath();
-    context.arc(pointD_X, pointD_Y, 3, 0, 360, 0);
-    context.fillText('D', pointD_X, pointD_Y - 5);
-    context.fill();
-    context.closePath();
-    //Triangle ABC
-    context.beginPath();
     context.lineWidth=2;
-    context.moveTo(pointA_X, pointA_Y);
-    context.lineTo(pointB_X, pointB_Y);
-    context.lineTo(pointC_X, pointC_Y);
-    context.closePath();
-    context.stroke();
-    //Triangle ABD
-    context.beginPath();
-    context.lineWidth=2;
-    context.moveTo(pointA_X, pointA_Y);
-    context.lineTo(pointB_X, pointB_Y);
-    context.lineTo(pointD_X, pointD_Y);
-    context.closePath();
-    context.stroke();
-    context.fill();
+    context.fillStyle = 'rgba(66, 134, 244, 0.5)';
+    context.strokeStyle = 'rgb(66, 134, 244)';
 
+    if (selectedProblem === 'asdradius, &#8736;ABD, &#8736;BDA') {
+      // draw triangle
+      context.beginPath();
+      context.arc(150, 150, 3, 0, 360, 0);
+      context.fillText('A', 150, 145);
+      context.fill();
+      context.closePath();
 
-    // draw circle
-    context.beginPath();
-    context.arc(pointA_X, pointA_Y, radius, 0, 360, 0);
-    context.stroke();
-    context.closePath();
+      context.beginPath();
+      context.arc(pointB_X, pointB_Y, 3, 0, 360, 0);
+      context.fillText('B', pointB_X, pointB_Y - 5);
+      context.fill();
+      context.closePath();
+
+      context.beginPath();
+      context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
+      context.fillText('C', pointC_X, pointC_Y - 5);
+      context.fill();
+      context.closePath();
+
+      context.beginPath();
+      context.arc(pointC_X, pointC_Y, 3, 0, 360, 0);
+      context.fillText('C', pointC_X, pointC_Y - 5);
+      context.fill();
+      context.closePath();
+
+      context.beginPath();
+      context.arc(pointD_X, pointD_Y, 3, 0, 360, 0);
+      context.fillText('D', pointD_X, pointD_Y - 5);
+      context.fill();
+      context.closePath();
+      //Triangle ABC
+      context.beginPath();
+      context.lineWidth=2;
+      context.moveTo(pointA_X, pointA_Y);
+      context.lineTo(pointB_X, pointB_Y);
+      context.lineTo(pointC_X, pointC_Y);
+      context.closePath();
+      context.stroke();
+      //Triangle ABD
+      context.beginPath();
+      context.lineWidth=2;
+      context.moveTo(pointA_X, pointA_Y);
+      context.lineTo(pointB_X, pointB_Y);
+      context.lineTo(pointD_X, pointD_Y);
+      context.closePath();
+      context.stroke();
+      context.fill();
+      // draw circle
+      context.beginPath();
+      context.arc(pointA_X, pointA_Y, radius, 0, 360, 0);
+      context.stroke();
+      context.closePath();
+    } else {
+      drawInputSet1(context, radius, angleDAB);
+    }
   }
 
   render() {
     return (
-      <canvas
-        ref="canvas"
-        style={{ border: '2px solid black' }}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
-      />
+      <div>
+        <canvas
+          ref="canvas"
+          style={{ border: '2px solid black' }}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
+        />
+        {
+          this.props.isSolvable
+            ? <h1 style={{ color: '#86f442' }}>Solvable</h1>
+            : <h1 style={{ color: '#f44141' }}>Unsolvable</h1>
+        }
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  values: state.inputFields,
+  inputFields: state.inputFields,
+  isSolvable: isSolvable(state.selectedProblem, state.inputFields),
+  selectedProblem: state.selectedProblem,
 });
 
 const Canvas = connect(mapStateToProps)(CanvasContainer);
