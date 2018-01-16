@@ -3,6 +3,7 @@
     "env": {
         "jest": true
     },
+    "parser": "babel-eslint",
     "rules": {
         "react/prefer-stateless-function": false
     }

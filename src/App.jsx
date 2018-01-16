@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import logo from './styles/logo.svg';
 import './styles/App.css';
-import Container from './modules/TriangleIncludesTangentLine/Container';
+import App from './modules/TriangleIncludesTangentLine/App';
 
-export default class App extends PureComponent {
+export default class Container extends PureComponent {
   render() {
     return (
       <div className="App">
@@ -11,7 +11,7 @@ export default class App extends PureComponent {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">118 Term Project: A triangle includes a tangent line.</h1>
         </header>
-        <Container />
+        <App />
       </div>
     );
   }

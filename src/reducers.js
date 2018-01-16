@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import inputFields from './components/Input/reducer';
-import selectedProblem from './components/ProblemSelector/reducer';
+import inputFields from './modules/TriangleIncludesTangentLine/redux';
 
 export default combineReducers({
   inputFields,
-  selectedProblem,
 });

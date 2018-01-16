@@ -1,18 +1,18 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { drawInputSet1 } from '../../utils/canvas';
-import isSolvable from '../../utils/isSolvable';
+import { drawInputSet1 } from '../../../utils/canvas';
+import isSolvable from '../../../utils/isSolvable';
 
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
 
-class CanvasContainer extends PureComponent {
+export default class CanvasContainer extends PureComponent {
   componentDidMount() {
     this.updateCanvas(this.props.inputFields);
   }
 
   componentDidUpdate() {
-    this.updateCanvas(this.props.inputFields, this.props.selectedProblem);
+    this.updateCanvas(this.props.inputFields);
   }
 
   updateCanvas({
@@ -26,7 +26,7 @@ class CanvasContainer extends PureComponent {
     pointC_Y,
     pointD_X,
     pointD_Y,
-  }, selectedProblem) {
+  }) {
     // setup
     const context = this.refs.canvas.getContext('2d');
     context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
@@ -55,13 +55,3 @@ class CanvasContainer extends PureComponent {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  inputFields: state.inputFields,
-  isSolvable: isSolvable(state.selectedProblem, state.inputFields),
-  selectedProblem: state.selectedProblem,
-});
-
-const Canvas = connect(mapStateToProps)(CanvasContainer);
-
-export default Canvas;

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormControl, ControlLabel, Col } from 'react-bootstrap';
 
-class Container extends PureComponent {
+class Input extends PureComponent {
   handleChange = (e) => this.props.inputTyped(this.props.field, e.target.value,);
   render() {
     return (
@@ -24,11 +24,10 @@ class Container extends PureComponent {
             value={this.props.currentInput}
           />
         }
-
         </Col>
       </div>
     );
   }
 }
 
-export default Container;
+export default Input;
