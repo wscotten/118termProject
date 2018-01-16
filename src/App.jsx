@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './styles/logo.svg';
+import './styles/App.css';
 import Container from './modules/TriangleIncludesTangentLine/Container';
 
 export default class App extends PureComponent {

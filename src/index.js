@@ -4,14 +4,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import './index.css';
+import './styles/index.css';
 import reducers from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(
+const store = createStore(
   reducers,
   composeEnhancers(applyMiddleware()),
 );
