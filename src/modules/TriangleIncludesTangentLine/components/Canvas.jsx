@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { drawInputSet1 } from '../../../utils/canvas';
+import drawInput from '../../../utils/canvas';
 
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
@@ -29,10 +29,10 @@ export default class CanvasContainer extends PureComponent {
     const context = this.refs.canvas.getContext('2d');
     context.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
     context.font = '15px Arial';
-    context.lineWidth=2;
+    context.lineWidth = 2;
     context.fillStyle = 'rgba(66, 134, 244, 0.5)';
     context.strokeStyle = 'rgb(66, 134, 244)';
-    drawInputSet1(context, radius, angleDAB);
+    drawInput(context, radius, angleDAB);
   }
 
   render() {

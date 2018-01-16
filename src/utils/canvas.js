@@ -3,7 +3,7 @@ import {
   tangentPointFromRadiusAndD,
 } from './geometryEquations';
 
-export const drawInputSet1 = (context, radius, angleDAB) => {
+export default (context, radius, angleDAB) => {
   const A_X = 150;
   const A_Y = 150;
   const B_X = A_X;
@@ -67,5 +67,3 @@ export const drawInputSet1 = (context, radius, angleDAB) => {
   context.fill();
   context.closePath();
 };
-
-export const lambda = () => 5;
