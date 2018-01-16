@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Form as BootstrapForm } from 'react-bootstrap';
-import Input from './components/Input';
-import ProblemSelector from './components/ProblemSelector';
-import update from './components/Input/actions';
+import Input from '../../components/Input';
+import ProblemSelector from '../../components/ProblemSelector';
+import update from '../../components/Input/actions';
 import { 
   getPointA,
   getPointB,
@@ -30,8 +30,8 @@ import {
   areaABC,
   smallArcBD,
   largeArcBD,
-} from './utils/geometryEquations';
-import isSolvable from './utils/isSolvable';
+} from '../../utils/geometryEquations';
+import isSolvable from '../../utils/isSolvable';
 
 class FormContainer extends PureComponent {
   handleChange = (field, value) => this.props.inputTyped(field, value);

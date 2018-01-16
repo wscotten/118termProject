@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Container from './app/Container';
+import Container from './modules/TriangleIncludesTangentLine/Container';
 
 export default class App extends PureComponent {
   render() {
@@ -9,7 +9,7 @@ export default class App extends PureComponent {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">118 Term Project</h1>
+          <h1 className="App-title">118 Term Project: A triangle includes a tangent line.</h1>
         </header>
         <Container />
       </div>
