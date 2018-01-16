@@ -7,7 +7,6 @@ export default class Form extends PureComponent {
   onChange = (field, value) => this.props.onChange(field, value);
 
   render() {
-    console.log(this.props.onChange);
     const {
       inputFields: {
         angleDAB,
