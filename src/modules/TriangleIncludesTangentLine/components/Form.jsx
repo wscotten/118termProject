@@ -1,46 +1,18 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { Form as BootstrapForm } from 'react-bootstrap';
 import Input from '../../../components/Input';
-import { update } from '../redux';
-import {
-  getPointA,
-  getPointB,
-  getPointC,
-  getPointD,
-  getLineAB,
-  getLineAC,
-  getLineAD,
-  getLineBC,
-  getLineBD,
-  getLineCD,
-  perimeterABD,
-  perimeterABC,
-  perimeterBCD,
-  perimeterCircle,
-  areaCircle,
-  angleABC,
-  angleCAB,
-  angleBCA,
-  angleABD,
-  angleBDA,
-  angleBDC,
-  angleCBD,
-  areaABC,
-  smallArcBD,
-  largeArcBD,
-} from '../../../utils/geometryEquations';
 import isSolvable from '../../../utils/isSolvable';
 
-class FormContainer extends PureComponent {
-  handleChange = (field, value) => this.props.inputTyped(field, value);
+export default class Form extends PureComponent {
+  onChange = (field, value) => this.props.onChange(field, value);
 
   render() {
+    console.log(this.props.onChange);
     const {
-      radius,
-      angleDAB,
-    } = this.props.inputFields;
-    const {
+      inputFields: {
+        angleDAB,
+        radius,
+      },
       pointA_X,
       pointA_Y,
       pointB_X,
@@ -75,8 +47,8 @@ class FormContainer extends PureComponent {
       <BootstrapForm horizontal>
         <h4>Input</h4>
         <div>
-          <Input name="radius" currentInput={radius} inputTyped={this.handleChange} field="radius" />
-          <Input name="&#8736;DAB" currentInput={angleDAB} inputTyped={this.handleChange} field="angleDAB" />
+          <Input name="radius" currentInput={radius} onChange={this.onChange} field="radius" />
+          <Input name="&#8736;DAB" currentInput={angleDAB} onChange={this.onChange} field="angleDAB" />
         </div>
         {
           isSolvable &&
@@ -233,50 +205,3 @@ class FormContainer extends PureComponent {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  inputFields: state.inputFields,
-  isSolvable: isSolvable(state.inputFields),
-  pointA_X: getPointA()[0],
-  pointA_Y: getPointA()[1],
-  pointB_X: getPointB(state.inputFields.radius)[0],
-  pointB_Y: getPointB(state.inputFields.radius)[1],
-  pointC_X: getPointC(state.inputFields)[0],
-  pointC_Y: getPointC(state.inputFields)[1],
-  pointD_X: getPointD(state.inputFields)[0],
-  pointD_Y: getPointD(state.inputFields)[1],
-  lineAB: getLineAB(state.inputFields),
-  lineAC: getLineAC(state.inputFields),
-  lineAD: getLineAD(state.inputFields),
-  lineBD: getLineBD(state.inputFields),
-  lineBC: getLineBC(state.inputFields),
-  lineCD: getLineCD(state.inputFields),
-  perimeterABD: perimeterABD(state.inputFields),
-  perimeterABC: perimeterABC(state.inputFields),
-  perimeterBCD: perimeterBCD(state.inputFields),
-  perimeterCircle: perimeterCircle(state.inputFields.radius),
-  areaCircle: areaCircle(state.inputFields),
-  angleABC: angleABC(),
-  angleCAB: angleCAB(state.inputFields),
-  angleBCA: angleBCA(state.inputFields),
-  angleABD: angleABD(state.inputFields),
-  angleBDA: angleBDA(state.inputFields),
-  angleBDC: angleBDC(state.inputFields),
-  angleCBD: angleCBD(state.inputFields),
-  areaABC: areaABC(state.inputFields),
-  smallArcBD: smallArcBD(state.inputFields),
-  largeArcBD: largeArcBD(state.inputFields),
-});
-
-const mapDispatchToProps = dispatch => ({
-  inputTyped: (field, value) => {
-    dispatch(update(field, value));
-  },
-});
-
-const Form = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FormContainer);
-
-export default Form;

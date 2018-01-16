@@ -15,7 +15,7 @@ export default (inputFields = initialData, { type, field, payload }) => {
   }
 };
 
-export const update = (field, value) => {
+export const onChange = (field, value) => {
   if (isNaN(value) || value < 0 || value.length > 4) return { type: 'DONT_UPDATE' };
   return {
     type: 'UPDATE_INPUT',

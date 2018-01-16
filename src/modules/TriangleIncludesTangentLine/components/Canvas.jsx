@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { drawInputSet1 } from '../../../utils/canvas';
-import isSolvable from '../../../utils/isSolvable';
 
 const CANVAS_WIDTH = 300;
 const CANVAS_HEIGHT = 300;
