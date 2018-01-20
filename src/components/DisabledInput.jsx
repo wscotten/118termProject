@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormControl, ControlLabel, Col, FormGroup } from 'react-bootstrap';
 
-export default class Input extends PureComponent {
+export default class DisabledInput extends PureComponent {
   onChange = (e) => this.props.onChange(this.props.field, e.target.value);
 
   render() {
@@ -11,17 +11,12 @@ export default class Input extends PureComponent {
     } = this.props;
     return (
       <Col sm={6}>
-        <FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
           <Col componentClass={ControlLabel} xs={4}>
             {name}
           </Col>
           <Col xs={8}>
-            <FormControl
-              type="number"
-              onChange={this.onChange}
-              placeholder="Enter Value"
-              value={currentInput}
-            />
+            <FormControl disabled value={currentInput} />
           </Col>
         </FormGroup>
       </Col>

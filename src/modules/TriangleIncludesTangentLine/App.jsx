@@ -43,11 +43,10 @@ class Container extends PureComponent {
     } = this.props;
     return (
       <div>
-        <Col lg={1} xs={4} />
-        <Col xs={4} >
+        <Col lg={4} >
           <Canvas {...CanvasProps} />
         </Col>
-        <Col lg={7} xs={12} >
+        <Col lg={7} >
           <Form
             {...FormProps}
             onChange={onChange}

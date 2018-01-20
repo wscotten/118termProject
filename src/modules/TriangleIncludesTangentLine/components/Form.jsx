@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Form as BootstrapForm } from 'react-bootstrap';
-import Input from '../../../components/Input';
+import { Input, DisabledInput } from '../../../components';
 import isSolvable from '../../../utils/isSolvable';
 
 export default class Form extends PureComponent {
@@ -53,149 +53,120 @@ export default class Form extends PureComponent {
           isSolvable &&
           <div>
             <h4>Output</h4>
-            <Input
+            <DisabledInput
               name="point A: X"
-              disabled
               currentInput={pointA_X}
             />
-            <Input
+            <DisabledInput
               name="point A: Y"
-              disabled
               currentInput={pointA_Y}
             />
-            <Input
+            <DisabledInput
               name="point B: X"
-              disabled
               currentInput={pointB_X}
             />
-            <Input
+            <DisabledInput
               name="point B: Y"
-              disabled
               currentInput={pointB_Y}
             />
-            <Input
+            <DisabledInput
               name="point C: X"
-              disabled
               currentInput={pointC_X}
             />
-            <Input
+            <DisabledInput
               name="point C: Y"
-              disabled
               currentInput={pointC_Y}
             />
-            <Input
+            <DisabledInput
               name="point D: X"
-              disabled
               currentInput={pointD_X}
             />
-            <Input
+            <DisabledInput
               name="point D: Y"
-              disabled
               currentInput={pointD_Y}
             />
-            <Input
+            <DisabledInput
               name="line AB"
-              disabled
               currentInput={lineAB}
             />
-            <Input
+            <DisabledInput
               name="line AC"
-              disabled
               currentInput={lineAC}
             />
-            <Input
+            <DisabledInput
               name="line AD"
-              disabled
               currentInput={lineAD}
             />
-            <Input
+            <DisabledInput
               name="line BC"
-              disabled
               currentInput={lineBC}
             />
-            <Input
+            <DisabledInput
               name="line BD"
-              disabled
               currentInput={lineBD}
             />
-            <Input
+            <DisabledInput
               name="line CD"
-              disabled
               currentInput={lineCD}
             />
-            <Input
+            <DisabledInput
               name="per. ABD"
-              disabled
               currentInput={perimeterABD}
             />
-            <Input
+            <DisabledInput
               name="per. ABC"
-              disabled
               currentInput={perimeterABC}
             />
-            <Input
+            <DisabledInput
               name="per. BCD"
-              disabled
               currentInput={perimeterBCD}
             />
-            <Input
+            <DisabledInput
               name="per. circle"
-              disabled
               currentInput={perimeterCircle}
             />
-            <Input
+            <DisabledInput
               name="area. circle"
-              disabled
               currentInput={areaCircle}
             />
-            <Input
+            <DisabledInput
               name="angle ABC"
-              disabled
               currentInput={angleABC}
             />
-            <Input
+            <DisabledInput
               name="angle CAB"
-              disabled
               currentInput={angleCAB}
             />
-            <Input
+            <DisabledInput
               name="angle BCA"
-              disabled
               currentInput={angleBCA}
             />
-            <Input
+            <DisabledInput
               name="angle ABD"
-              disabled
               currentInput={angleABD}
             />
-            <Input
+            <DisabledInput
               name="angle BDA"
-              disabled
               currentInput={angleBDA}
             />
-            <Input
+            <DisabledInput
               name="angle BDC"
-              disabled
               currentInput={angleBDC}
             />
-            <Input
+            <DisabledInput
               name="angle CBD"
-              disabled
               currentInput={angleCBD}
             />
-            <Input
+            <DisabledInput
               name="area ABC"
-              disabled
               currentInput={areaABC}
             />
-            <Input
+            <DisabledInput
               name="sml arc BD"
-              disabled
               currentInput={smallArcBD}
             />
-            <Input
+            <DisabledInput
               name="lg arc BD"
-              disabled
               currentInput={largeArcBD}
             />
           </div>
